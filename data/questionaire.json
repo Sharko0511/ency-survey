@@ -1,0 +1,797 @@
+{
+  "formTitle": "Bảng Câu Hỏi Khách Hàng - Huấn Luyện Cá Nhân",
+  "formDescription": "Thu thập thông tin cá nhân, sức khỏe và mục tiêu tập luyện",
+  "submitButtonText": "Gửi",
+  "successMessage": "Cảm ơn bạn! Huấn luyện viên sẽ liên hệ trong thời gian sớm nhất.",
+  "sections": [
+    {
+      "sectionId": "basic_info",
+      "title": "Phần 1: Thông tin cơ bản",
+      "description": "Vui lòng cung cấp thông tin cá nhân của bạn",
+      "questions": [
+        {
+          "id": "full_name",
+          "type": "text",
+          "label": "Họ và tên",
+          "required": true,
+          "order": 1
+        },
+        {
+          "id": "dob",
+          "type": "date",
+          "label": "Ngày sinh",
+          "required": true,
+          "order": 2
+        },
+        {
+          "id": "age",
+          "type": "number",
+          "label": "Tuổi",
+          "required": true,
+          "order": 3
+        },
+        {
+          "id": "gender",
+          "type": "select",
+          "label": "Giới tính",
+          "options": ["Nam", "Nữ"],
+          "required": true,
+          "order": 4
+        },
+        {
+          "id": "email",
+          "type": "email",
+          "label": "Email",
+          "required": true,
+          "order": 5
+        },
+        {
+          "id": "phone",
+          "type": "tel",
+          "label": "Số điện thoại",
+          "required": true,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "sectionId": "body_metrics",
+      "title": "Phần 2: Chỉ số cơ thể & Tỷ lệ mỡ",
+      "description": "Các số đo cơ thể và tỷ lệ mỡ",
+      "questions": [
+        {
+          "id": "height",
+          "type": "number",
+          "label": "Chiều cao (cm)",
+          "required": true,
+          "validation": {
+            "min": 50,
+            "max": 250
+          },
+          "order": 10
+        },
+        {
+          "id": "weight",
+          "type": "number",
+          "label": "Cân nặng (kg)",
+          "required": true,
+          "validation": {
+            "min": 30,
+            "max": 200
+          },
+          "order": 11
+        },
+        {
+          "id": "bf_method",
+          "type": "select",
+          "label": "Phương pháp đo tỷ lệ mỡ",
+          "options": ["Công thức số đo", "Chọn hình ảnh", "Nhập trực tiếp"],
+          "required": true,
+          "order": 12
+        },
+        {
+          "id": "neck",
+          "type": "number",
+          "label": "Số đo cổ (cm)",
+          "required": true,
+          "validation": {
+            "min": 20,
+            "max": 60
+          },
+          "conditional": {
+            "dependsOn": "bf_method",
+            "showWhen": "Công thức số đo"
+          },
+          "order": 13
+        },
+        {
+          "id": "waist",
+          "type": "number",
+          "label": "Số đo bụng/eo (cm)",
+          "required": true,
+          "validation": {
+            "min": 40,
+            "max": 200
+          },
+          "conditional": {
+            "dependsOn": "bf_method",
+            "showWhen": "Công thức số đo"
+          },
+          "order": 14
+        },
+        {
+          "id": "hip",
+          "type": "number",
+          "label": "Số đo hông (cm, chỉ nữ)",
+          "description": "Trường này chỉ bắt buộc đối với nữ giới",
+          "validation": {
+            "min": 50,
+            "max": 200
+          },
+          "conditional": {
+            "dependsOn": "bf_method",
+            "showWhen": "Công thức số đo"
+          },
+          "order": 15
+        },
+        {
+          "id": "body_fat_visual",
+          "type": "radio",
+          "label": "Chọn mức độ tỷ lệ mỡ dựa trên hình ảnh",
+          "description": "So sánh cơ thể bạn với các hình ảnh tham khảo và chọn mức độ phù hợp nhất",
+          "options": [
+            "Khoảng 1 (Rất thấp)",
+            "Khoảng 2",
+            "Khoảng 3",
+            "Khoảng 4",
+            "Khoảng 5 (Trung bình)",
+            "Khoảng 6",
+            "Khoảng 7",
+            "Khoảng 8",
+            "Khoảng 9 (Cao)"
+          ],
+          "required": true,
+          "conditional": {
+            "dependsOn": "bf_method",
+            "showWhen": "Chọn hình ảnh"
+          },
+          "order": 16
+        },
+        {
+          "id": "body_fat_direct",
+          "type": "number",
+          "label": "Tỷ lệ mỡ cơ thể đã biết (%)",
+          "description": "Nhập tỷ lệ mỡ đã được đo bằng máy chuyên dụng",
+          "required": true,
+          "validation": {
+            "min": 1,
+            "max": 50
+          },
+          "conditional": {
+            "dependsOn": "bf_method",
+            "showWhen": "Nhập trực tiếp"
+          },
+          "order": 17
+        }
+      ]
+    },
+    {
+      "sectionId": "medical_health",
+      "title": "Phần 3: Thông tin y tế & Sức khỏe",
+      "description": "Vui lòng trả lời trung thực để đảm bảo an toàn tuyệt đối.",
+      "questions": [
+        {
+          "id": "medical_conditions",
+          "type": "checkbox",
+          "label": " Bạn có đang hoặc đã từng mắc các bệnh lý nào dưới đây không? (chọn tất cả những gì phù hợp)",
+          "options": [
+            "Hen suyễn",
+            "Tiểu đường (Tuýp 1 hoặc 2)",
+            "Bệnh tim / Tim mạch",
+            "Huyết áp cao",
+            "Cường giáp",
+            "Các vấn đề về cơ/xương/khớp: (Ví dụ: Đau lưng, gối, vai...)",
+            "Chấn thương gần đây",
+            "Các vấn đề sức khỏe khác"
+          ],
+          "order": 20
+        },
+        {
+          "id": "medical_conditions_musculoskeletal_detail",
+          "type": "textarea",
+          "label": "Mô tả chi tiết về các vấn đề cơ/xương/khớp",
+          "description": "Vui lòng mô tả cụ thể vấn đề của bạn",
+          "required": true,
+          "conditional": {
+            "dependsOn": "medical_conditions",
+            "showWhen": [
+              "Các vấn đề về cơ/xương/khớp: (Ví dụ: Đau lưng, gối, vai...)"
+            ]
+          },
+          "order": 21
+        },
+        {
+          "id": "medical_conditions_injury_detail",
+          "type": "textarea",
+          "label": "Mô tả chi tiết về chấn thương gần đây",
+          "description": "Vui lòng mô tả chấn thương, thời gian xảy ra và tình trạng hiện tại",
+          "required": true,
+          "conditional": {
+            "dependsOn": "medical_conditions",
+            "showWhen": ["Chấn thương gần đây"]
+          },
+          "order": 21
+        },
+        {
+          "id": "medical_conditions_other_detail",
+          "type": "textarea",
+          "label": "Mô tả chi tiết các vấn đề sức khỏe khác",
+          "description": "Vui lòng mô tả cụ thể các vấn đề sức khỏe khác của bạn",
+          "required": true,
+          "conditional": {
+            "dependsOn": "medical_conditions",
+            "showWhen": ["Các vấn đề sức khỏe khác"]
+          },
+          "order": 21
+        },
+        {
+          "id": "medications",
+          "type": "radio",
+          "label": "Bạn có đang sử dụng loại thuốc nào không?",
+          "options": ["Không", "Có"],
+          "required": true,
+          "order": 22
+        },
+        {
+          "id": "medications_detail",
+          "type": "textarea",
+          "label": "Vui lòng liệt kê các loại thuốc bạn đang sử dụng",
+          "description": "Bao gồm tên thuốc, liều lượng và mục đích sử dụng",
+          "required": true,
+          "conditional": {
+            "dependsOn": "medications",
+            "showWhen": "Có"
+          },
+          "order": 22
+        },
+        {
+          "id": "chest_pain",
+          "type": "radio",
+          "label": "Bạn đã từng bị đau ngực khi vận động mạnh chưa?",
+          "options": ["Chưa bao giờ", "Đã từng"],
+          "required": true,
+          "order": 23
+        },
+        {
+          "id": "chest_pain_detail",
+          "type": "textarea",
+          "label": "Mô tả chi tiết về tình trạng đau ngực",
+          "description": "Vui lòng mô tả tần suất, mức độ và hoàn cảnh xảy ra",
+          "required": true,
+          "conditional": {
+            "dependsOn": "chest_pain",
+            "showWhen": "Đã từng"
+          },
+          "order": 23
+        },
+        {
+          "id": "surgery",
+          "type": "radio",
+          "label": "Bạn có từng phẫu thuật hoặc điều trị vật lý trị liệu trong 12 tháng qua không?",
+          "options": ["Không", "Có"],
+          "required": true,
+          "order": 24
+        },
+        {
+          "id": "surgery_detail",
+          "type": "textarea",
+          "label": "Mô tả chi tiết về phẫu thuật/vật lý trị liệu",
+          "description": "Vui lòng mô tả loại phẫu thuật/điều trị, thời gian và tình trạng phục hồi",
+          "required": true,
+          "conditional": {
+            "dependsOn": "surgery",
+            "showWhen": "Có"
+          },
+          "order": 24
+        },
+        {
+          "id": "risk_level",
+          "type": "radio",
+          "label": "Mức độ rủi ro sức khỏe",
+          "options": ["Thấp", "Trung bình", "Cao"],
+          "order": 25
+        },
+        {
+          "id": "medical_recommendations",
+          "type": "text",
+          "label": "Khuyến nghị y tế (nếu có)",
+          "order": 26
+        }
+      ]
+    },
+    {
+      "sectionId": "lifestyle",
+      "title": "Phần 4: Lối sống",
+      "description": "Thông tin về lối sống và thói quen hàng ngày",
+      "questions": [
+        {
+          "id": "occupation",
+          "type": "text",
+          "label": "Nghề nghiệp",
+          "order": 30
+        },
+        {
+          "id": "activity_level",
+          "required": true,
+          "type": "radio",
+          "label": "Mức độ vận động",
+          "options": [
+            "Ngồi nhiều / Ít vận động",
+            "Nhẹ nhàng",
+            "Trung bình",
+            "Vận động nhiều",
+            "Rất năng động"
+          ],
+          "order": 31
+        },
+        {
+          "id": "steps",
+          "type": "number",
+          "label": "Số bước chân trung bình mỗi ngày (nếu biết)",
+          "order": 32
+        },
+        {
+          "id": "sleep_hours",
+          "required": true,
+          "type": "number",
+          "label": "Thời gian ngủ trung bình mỗi đêm (giờ)",
+          "order": 33
+        },
+        {
+          "id": "sleep_habits",
+          "required": true,
+          "type": "textarea",
+          "label": "Mô tả thói quen ngủ của bạn",
+          "order": 34
+        },
+        {
+          "id": "stress",
+          "type": "number",
+          "label": "Mức độ căng thẳng hiện tại (1 = rất thư giãn, 10 = rất căng thẳng)",
+          "required": true,
+          "validation": {
+            "min": 1,
+            "max": 10
+          },
+          "order": 35
+        },
+        {
+          "id": "stress_relief",
+          "type": "text",
+          "label": "Bạn thường làm gì để giảm stress?",
+          "required": true,
+          "order": 36
+        },
+        {
+          "id": "smoke",
+          "type": "radio",
+          "label": "Bạn có hút thuốc không? ",
+          "required": true,
+          "options": ["Không", "Có"],
+          "order": 37
+        },
+        {
+          "id": "alcohol",
+          "type": "radio",
+          "label": "Bạn có uống rượu bia không?",
+          "required": true,
+          "options": ["Không", "Thỉnh thoảng", "Thường xuyên"],
+          "order": 38
+        }
+      ]
+    },
+    {
+      "sectionId": "nutrition",
+      "title": "Phần 5: Dinh dưỡng",
+      "description": "Chế độ ăn uống và thói quen dinh dưỡng",
+      "questions": [
+        {
+          "id": "diet",
+          "type": "radio",
+          "label": "Chế độ ăn hiện tại của bạn",
+          "required": true,
+          "options": [
+            "Ăn uống bình thường",
+            "Ăn chay",
+            "Low-Carb",
+            "Ăn kiêng gián đoạn",
+            "Low-Fat",
+            "Khác"
+          ],
+          "order": 40
+        },
+        {
+          "id": "allergies",
+          "type": "checkbox",
+          "label": "Dị ứng hoặc kiêng các loại thực phẩm sau",
+          "options": [
+            "Gluten",
+            "Lactose",
+            "Các loại hạt",
+            "Hải sản",
+            "Trứng",
+            "Khác"
+          ],
+          "order": 41
+        },
+        {
+          "id": "meals_per_day",
+          "type": "radio",
+          "required": true,
+          "label": "Số bữa ăn mỗi ngày",
+          "options": ["2", "3", "4-5", "6+"],
+          "order": 42
+        },
+        {
+          "id": "water",
+          "type": "number",
+          "required": true,
+          "label": "Lượng nước uống trung bình mỗi ngày",
+          "order": 43
+        },
+        {
+          "id": "nutrition_tracking",
+          "type": "radio",
+          "required": true,
+          "label": "Bạn có kinh nghiệm theo dõi dinh dưỡng (track nutrition) chưa? Bạn có sẵn sàng thực hiện không?",
+          "options": [
+            "Đã có kinh nghiệm và đang theo dõi",
+            "Đã có kinh nghiệm nhưng đang không theo dõi",
+            "Chưa có kinh nghiệm nhưng sẵn sàng thực hiện",
+            "Chưa có kinh nghiệm và chưa muốn thực hiện"
+          ],
+          "order": 44
+        }
+      ]
+    },
+    {
+      "sectionId": "training_history",
+      "title": "Phần 6: Lịch sử tập luyện",
+      "description": "Kinh nghiệm và lịch sử tập luyện của bạn",
+      "questions": [
+        {
+          "id": "training_time",
+          "type": "radio",
+          "label": "Bạn tập gym (liên tục) được bao lâu rồi?",
+          "required": true,
+          "options": [
+            "Mới bắt đầu (< 6 tháng)",
+            "6 tháng - 2 năm",
+            "Trên 2 năm"
+          ],
+          "order": 50
+        },
+        {
+          "id": "training_split",
+          "type": "checkbox",
+          "label": "Lịch tập hiện tại/gần nhất của bạn",
+          "options": [
+            "Push Pull Legs",
+            "Upper Lower",
+            "Full Body",
+            "Bro Split (Mỗi ngày 1 nhóm cơ)",
+            "Crossfit",
+            "Cardio",
+            "Tập ngẫu nhiên không theo lịch"
+          ],
+          "order": 51
+        },
+        {
+          "id": "training_freq",
+          "type": "radio",
+          "label": "Tần suất tập luyện hiện tại",
+          "required": true,
+          "options": [
+            "Không tập",
+            "1-2 buổi/tuần",
+            "3-4 buổi/tuần",
+            "5-6 buổi/tuần",
+            "Hàng ngày"
+          ],
+          "order": 52
+        },
+        {
+          "id": "session_length",
+          "type": "radio",
+          "label": "Độ dài mỗi buổi tập",
+          "options": ["<45 phút", "45-60 phút", "60-90 phút", ">90 phút"],
+          "order": 53
+        },
+        {
+          "id": "cardio_week",
+          "type": "number",
+          "label": "Ngoài tập tạ, bạn có thể dành bao nhiêu phút/tuần cho cardio?",
+          "order": 54
+        },
+        {
+          "id": "sports",
+          "type": "text",
+          "label": "Bạn có chơi môn thể thao nào khác không? Trình độ như thế nào?",
+          "order": 55
+        },
+        {
+          "id": "coach_before",
+          "type": "textarea",
+          "label": "Bạn đã từng có Huấn luyện viên cá nhân chưa? Trải nghiệm đó như thế nào?",
+          "order": 56
+        },
+        {
+          "id": "stopped_reason",
+          "type": "text",
+          "label": "Trong quá khứ, điều gì khiến bạn ngưng tập luyện?",
+          "order": 57
+        },
+        {
+          "id": "track_workout",
+          "type": "radio",
+          "label": "Bạn có kinh nghiệm theo dõi lịch tập (track workout) không?",
+          "required": true,
+          "options": [
+            "Có, và đang theo dõi",
+            "Có, nhưng hiện tại không",
+            "Chưa từng"
+          ],
+          "order": 58
+        },
+        {
+          "id": "personal_records_intro",
+          "type": "text",
+          "label": "Thành tích cá nhân (1RM - Mức tạ tối đa 1 lần)",
+          "description": "Nếu bạn tự tin và đã từng thử, hãy nhập thẳng kết quả 1RM của bạn. Nếu không, hãy nhập mức tạ và số lần lặp lại tối đa (reps max, không quá 10) bạn làm được với form chuẩn, hệ thống sẽ ước tính 1RM cho bạn.",
+          "required": false,
+          "order": 59
+        },
+        {
+          "id": "squat_1rm_direct",
+          "type": "number",
+          "label": "Squat - 1RM (kg)",
+          "description": "Nhập trực tiếp nếu bạn biết 1RM của mình",
+          "order": 59
+        },
+        {
+          "id": "squat_weight_estimate",
+          "type": "number",
+          "label": "Squat - Hoặc ước tính từ: Mức tạ (kg)",
+          "description": "Mức tạ bạn có thể squat với số reps max",
+          "order": 59
+        },
+        {
+          "id": "squat_reps_estimate",
+          "type": "number",
+          "label": "Squat - Số Reps max",
+          "description": "Số lần lặp lại tối đa (không quá 10)",
+          "validation": {
+            "min": 1,
+            "max": 10
+          },
+          "order": 59
+        },
+        {
+          "id": "bench_1rm_direct",
+          "type": "number",
+          "label": "Bench Press - 1RM (kg)",
+          "description": "Nhập trực tiếp nếu bạn biết 1RM của mình",
+          "order": 60
+        },
+        {
+          "id": "bench_weight_estimate",
+          "type": "number",
+          "label": "Bench Press - Hoặc ước tính từ: Mức tạ (kg)",
+          "description": "Mức tạ bạn có thể bench với số reps max",
+          "order": 60
+        },
+        {
+          "id": "bench_reps_estimate",
+          "type": "number",
+          "label": "Bench Press - Số Reps max",
+          "description": "Số lần lặp lại tối đa (không quá 10)",
+          "validation": {
+            "min": 1,
+            "max": 10
+          },
+          "order": 60
+        },
+        {
+          "id": "deadlift_1rm_direct",
+          "type": "number",
+          "label": "Deadlift - 1RM (kg)",
+          "description": "Nhập trực tiếp nếu bạn biết 1RM của mình",
+          "order": 61
+        },
+        {
+          "id": "deadlift_weight_estimate",
+          "type": "number",
+          "label": "Deadlift - Hoặc ước tính từ: Mức tạ (kg)",
+          "description": "Mức tạ bạn có thể deadlift với số reps max",
+          "order": 61
+        },
+        {
+          "id": "deadlift_reps_estimate",
+          "type": "number",
+          "label": "Deadlift - Số Reps max",
+          "description": "Số lần lặp lại tối đa (không quá 10)",
+          "validation": {
+            "min": 1,
+            "max": 10
+          },
+          "order": 61
+        }
+      ]
+    },
+    {
+      "sectionId": "training_goals",
+      "title": "Phần 7: Mục tiêu tập luyện",
+      "description": "Mục tiêu và kỳ vọng của bạn",
+      "questions": [
+        {
+          "id": "goals",
+          "type": "checkbox",
+          "label": "Mục tiêu",
+          "required": true,
+          "options": [
+            "Giảm mỡ / Giảm cân",
+            "Tăng cơ",
+            "Cải thiện vóc dáng",
+            "Tăng sức bền/tim mạch",
+            "Tăng sự linh hoạt",
+            "Cải thiện sức khỏe tổng thể",
+            "Khác"
+          ],
+          "order": 70
+        },
+        {
+          "id": "goal_number",
+          "type": "text",
+          "label": "Bạn có mục tiêu cụ thể nào về con số không? (ví dụ: Giảm 5kg, squat 100kg...)",
+          "required": true,
+          "order": 71
+        },
+        {
+          "id": "goal_time",
+          "type": "text",
+          "label": "Bạn muốn đạt được kết quả trong bao lâu?",
+          "required": true,
+          "order": 72
+        },
+        {
+          "id": "success_def",
+          "type": "textarea",
+          "label": "Thành công trong việc tập luyện đối với bạn có nghĩa là gì?",
+          "required": true,
+          "order": 73
+        }
+      ]
+    },
+    {
+      "sectionId": "preferences_schedule",
+      "title": "Phần 8: Sở thích & Lịch tập",
+      "description": "Sở thích tập luyện và lịch trình phù hợp",
+      "questions": [
+        {
+          "id": "training_place",
+          "type": "radio",
+          "label": "Địa điểm",
+          "required": true,
+          "options": ["Gym", "Ở nhà", "Ngoài trời"],
+          "order": 80
+        },
+        {
+          "id": "training_type",
+          "type": "checkbox",
+          "label": "Loại hình",
+          "options": ["Nâng tạ", "Cardio", "HIIT", "Yoga/Pilates"],
+          "order": 81
+        },
+        {
+          "id": "exercise_dislike",
+          "type": "text",
+          "label": "Có bài tập nào bạn không thích hoặc không thể thực hiện không?",
+          "order": 82
+        },
+        {
+          "id": "equipment",
+          "type": "text",
+          "label": "Thiết bị có sẵn",
+          "order": 83
+        },
+        {
+          "id": "training_time_day",
+          "type": "checkbox",
+          "label": "Thời gian bạn có thể tập luyện trong ngày? (chọn tất cả những gì phù hợp)",
+          "required": true,
+          "options": [
+            "Sáng (5-9h)",
+            "Trưa (11-13h)",
+            "Chiều (15-18h)",
+            "Tối (18-21h)",
+            "Linh động"
+          ],
+          "order": 84
+        },
+        {
+          "id": "days",
+          "type": "checkbox",
+          "label": "Những ngày bạn có thể tập trong tuần? (chọn tất cả những ngày phù hợp)",
+          "required": true,
+          "options": [
+            "Thứ 2",
+            "Thứ 3",
+            "Thứ 4",
+            "Thứ 5",
+            "Thứ 6",
+            "Thứ 7",
+            "Chủ nhật"
+          ],
+          "order": 85
+        }
+      ]
+    },
+    {
+      "sectionId": "motivation_coaching",
+      "title": "Phần 9: Động lực & Phong cách huấn luyện",
+      "description": "Cách bạn muốn được hỗ trợ và động viên",
+      "questions": [
+        {
+          "id": "motivation",
+          "type": "textarea",
+          "label": "Điều gì giúp bạn duy trì động lực tập luyện?",
+          "order": 90
+        },
+        {
+          "id": "coach_style",
+          "type": "checkbox",
+          "label": "Bạn mong muốn Huấn luyện viên hỗ trợ như thế nào?",
+          "required": true,
+          "options": [
+            "Kỷ luật, nhắc nhở thường xuyên",
+            " Khích lệ, động viên nhẹ nhàng",
+            "Cung cấp kiến thức, giải thích chi tiết",
+            "Theo dõi số liệu, phân tích tiến trình"
+          ],
+          "order": 91
+        },
+        {
+          "id": "contact",
+          "type": "select",
+          "label": "Bạn muốn trao đổi với Huấn luyện viên qua kênh nào là chính?",
+          "required": true,
+          "options": ["Zalo / Messenger", "Gặp trực tiếp", "Email", "Cuộc gọi"],
+          "order": 92
+        }
+      ]
+    },
+    {
+      "sectionId": "commitment",
+      "title": "Phần 10: Cam kết & Đồng ý",
+      "description": "Bằng việc hoàn thành bảng câu hỏi này, tôi xác nhận rằng các thông tin cung cấp là trung thực và chính xác theo hiểu biết của tôi. Tôi hiểu rằng việc che giấu thông tin y tế có thể gây nguy hiểm cho sức khỏe của bản thân trong quá trình tập luyện.",
+      "questions": [
+        {
+          "id": "signature",
+          "type": "text",
+          "label": "Tên đầy đủ",
+          "description": "Nhập họ tên đầy đủ để xác nhận",
+          "required": true,
+          "order": 101
+        },
+
+        {
+          "id": "date",
+          "type": "date",
+          "required": true,
+          "label": "Ngày",
+          "order": 102
+        }
+      ]
+    }
+  ]
+}
