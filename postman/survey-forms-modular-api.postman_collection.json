@@ -1,0 +1,589 @@
+{
+  "info": {
+    "name": "Survey Forms API - Modular System",
+    "description": "Complete API collection for testing the modular survey forms system with 3 question querying options",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "survey-forms-modular-api",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "item": [
+    {
+      "name": "📋 Forms API",
+      "item": [
+        {
+          "name": "Get Complete Form Structure",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}"]
+            },
+            "description": "Retrieves complete form structure with all sections and questions nested in correct order"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Form - Not Found (Error Test)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/non-existent-form",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "non-existent-form"]
+            },
+            "description": "Test error handling for non-existent forms"
+          },
+          "response": []
+        }
+      ],
+      "description": "API endpoints for form management and structure retrieval"
+    },
+    {
+      "name": "❓ Questions API - 3 Querying Options",
+      "item": [
+        {
+          "name": "🎯 Option 1: Get ALL Questions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"]
+            },
+            "description": "Option 1: Get all questions from all sections in the form"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Option 2: Get Questions - Basic Info Only",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?sections=basic_info",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "sections",
+                  "value": "basic_info",
+                  "description": "Get questions only from basic_info section"
+                }
+              ]
+            },
+            "description": "Option 2: Get questions from specific section (basic_info only)"
+          },
+          "response": []
+        },
+        {
+          "name": "🔍 Option 2: Get Questions - Multiple Sections",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?sections=basic_info,body_metrics,medical_health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "sections",
+                  "value": "basic_info,body_metrics,medical_health",
+                  "description": "Get questions from multiple specific sections"
+                }
+              ]
+            },
+            "description": "Option 2: Get questions from multiple specific sections"
+          },
+          "response": []
+        },
+        {
+          "name": "📄 Option 3: Get Questions - Page 1 (10 items)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "First page"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "10 questions per page"
+                }
+              ]
+            },
+            "description": "Option 3: Get paginated questions (page 1, 10 items)"
+          },
+          "response": []
+        },
+        {
+          "name": "📄 Option 3: Get Questions - Page 2 (5 items)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?page=2&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2",
+                  "description": "Second page"
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "5 questions per page"
+                }
+              ]
+            },
+            "description": "Option 3: Get paginated questions (page 2, 5 items)"
+          },
+          "response": []
+        },
+        {
+          "name": "🔀 Combined: Sections + Pagination",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?sections=medical_health,lifestyle&page=1&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "sections",
+                  "value": "medical_health,lifestyle",
+                  "description": "Filter by specific sections"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "First page"
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "5 questions per page"
+                }
+              ]
+            },
+            "description": "Combined: Get questions from specific sections with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Error Test: Invalid Form ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/invalid-form-id/questions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "invalid-form-id", "questions"]
+            },
+            "description": "Test error handling for non-existent form"
+          },
+          "response": []
+        }
+      ],
+      "description": "Questions API with 3 different querying options: all questions, specific sections, and pagination"
+    },
+    {
+      "name": "📝 Responses API",
+      "item": [
+        {
+          "name": "Submit Form Response (With User ID)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"form_id\": \"{{formId}}\",\n  \"user_id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"answers\": {\n    \"full_name\": \"Nguyễn Văn Test\",\n    \"age\": 25,\n    \"email\": \"test@example.com\",\n    \"gender\": \"Nam\",\n    \"height\": 175,\n    \"weight\": 70,\n    \"activity_level\": \"Trung bình\",\n    \"goals\": [\"Giảm mỡ / Giảm cân\", \"Tăng cơ\"]\n  },\n  \"metadata\": {\n    \"ip_address\": \"192.168.1.1\",\n    \"user_agent\": \"PostmanRuntime/7.32.3\",\n    \"completion_time_seconds\": 300,\n    \"test_submission\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/responses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"]
+            },
+            "description": "Submit a complete form response with user ID and metadata"
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Form Response (Anonymous)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"form_id\": \"{{formId}}\",\n  \"answers\": {\n    \"full_name\": \"Anonymous User\",\n    \"age\": 30,\n    \"email\": \"anonymous@example.com\",\n    \"gender\": \"Nữ\",\n    \"height\": 160,\n    \"weight\": 55\n  },\n  \"metadata\": {\n    \"anonymous_submission\": true,\n    \"completion_time_seconds\": 180\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/responses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"]
+            },
+            "description": "Submit anonymous form response (no user_id)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Responses for Form",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/responses?form_id={{formId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"],
+              "query": [
+                {
+                  "key": "form_id",
+                  "value": "{{formId}}",
+                  "description": "Filter by specific form"
+                }
+              ]
+            },
+            "description": "Get all responses for the fitness form"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Responses for Specific User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/responses?user_id=123e4567-e89b-12d3-a456-426614174000",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "123e4567-e89b-12d3-a456-426614174000",
+                  "description": "Filter by specific user"
+                }
+              ]
+            },
+            "description": "Get all responses from a specific user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Paginated Responses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/responses?form_id={{formId}}&page=1&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"],
+              "query": [
+                {
+                  "key": "form_id",
+                  "value": "{{formId}}",
+                  "description": "Filter by form"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "5",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "Get paginated responses for a form"
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Submit Invalid Response (Error Test)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"form_id\": \"invalid-form-id\",\n  \"answers\": {\n    \"full_name\": \"Test User\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/responses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"]
+            },
+            "description": "Test error handling for invalid form ID"
+          },
+          "response": []
+        },
+        {
+          "name": "❌ Submit Missing Data (Error Test)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"form_id\": \"{{formId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/responses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "responses"]
+            },
+            "description": "Test error handling for missing answers field"
+          },
+          "response": []
+        }
+      ],
+      "description": "API endpoints for form response submission and retrieval"
+    },
+    {
+      "name": "🧪 Integration Tests",
+      "item": [
+        {
+          "name": "Full Workflow Test 1: Get Form → Get Questions → Submit Response",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}"]
+            },
+            "description": "Step 1: Get complete form structure (use this to understand the form before submitting)"
+          },
+          "response": []
+        },
+        {
+          "name": "Full Workflow Test 2: Progressive Loading Simulation",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?sections=basic_info,body_metrics&page=1&limit=8",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "sections",
+                  "value": "basic_info,body_metrics",
+                  "description": "Load first two sections"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "First batch"
+                },
+                {
+                  "key": "limit",
+                  "value": "8",
+                  "description": "8 questions at a time"
+                }
+              ]
+            },
+            "description": "Simulate progressive loading: Load first sections with limited questions"
+          },
+          "response": []
+        },
+        {
+          "name": "Performance Test: Large Page Size",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/forms/{{formId}}/questions?limit=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "forms", "{{formId}}", "questions"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Large page size for performance testing"
+                }
+              ]
+            },
+            "description": "Test API performance with large page size"
+          },
+          "response": []
+        }
+      ],
+      "description": "Integration and workflow tests to simulate real-world usage scenarios"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string",
+      "description": "Base URL for the survey forms API"
+    },
+    {
+      "key": "formId",
+      "value": "fitness-form-v1",
+      "type": "string",
+      "description": "Vietnamese fitness form ID for testing"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set up environment variables if not set",
+          "if (!pm.environment.get('baseUrl')) {",
+          "    pm.environment.set('baseUrl', 'http://localhost:3000');",
+          "}",
+          "",
+          "if (!pm.environment.get('formId')) {",
+          "    pm.environment.set('formId', 'fitness-form-v1');",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global tests for all requests",
+          "pm.test('Response time is less than 2000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});",
+          "",
+          "pm.test('Response has proper CORS headers', function () {",
+          "    pm.expect(pm.response.headers.get('Access-Control-Allow-Origin')).to.exist;",
+          "});",
+          "",
+          "// Test for successful responses",
+          "if (pm.response.code >= 200 && pm.response.code < 300) {",
+          "    pm.test('Response is valid JSON', function () {",
+          "        pm.expect(pm.response.json()).to.be.an('object');",
+          "    });",
+          "}",
+          "",
+          "// Test for error responses",
+          "if (pm.response.code >= 400) {",
+          "    pm.test('Error response has error field', function () {",
+          "        const jsonData = pm.response.json();",
+          "        pm.expect(jsonData).to.have.property('error');",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ]
+}
