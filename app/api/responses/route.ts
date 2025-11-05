@@ -20,10 +20,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate that form exists
+    // Validate that form exists and get its sections
     const { data: form, error: formError } = await supabase
       .from('forms')
-      .select('id, is_active')
+      .select('id, is_active, section_ids')
       .eq('id', form_id)
       .single()
 
@@ -37,6 +37,71 @@ export async function POST(request: NextRequest) {
     if (!form.is_active) {
       return NextResponse.json(
         { error: 'Form is not active' },
+        { status: 400 }
+      )
+    }
+
+    // Get all sections for this form
+    const { data: sections, error: sectionsError } = await supabase
+      .from('sections')
+      .select('section_id, question_ids')
+      .in('section_id', form.section_ids || [])
+
+    if (sectionsError) {
+      return NextResponse.json(
+        { error: 'Failed to fetch form sections', details: sectionsError.message },
+        { status: 500 }
+      )
+    }
+
+    // Get all question IDs from all sections
+    const allQuestionIds = (sections || []).flatMap(section => section.question_ids || [])
+
+    // Get all questions with their validation rules
+    const { data: questions, error: questionsError } = await supabase
+      .from('questions')
+      .select('question_id, label, validation')
+      .in('question_id', allQuestionIds)
+
+    if (questionsError) {
+      return NextResponse.json(
+        { error: 'Failed to fetch form questions', details: questionsError.message },
+        { status: 500 }
+      )
+    }
+
+    // Validate required fields
+    const missingRequiredFields: Array<{question_id: string, label: string}> = []
+    
+    if (questions) {
+      for (const question of questions) {
+        const validation = question.validation || {}
+        const isRequired = validation.required === true
+        
+        if (isRequired) {
+          const answer = answers[question.question_id]
+          
+          // Check if answer is missing or empty
+          // Handles: undefined, null, empty string, empty array
+          if (answer === undefined || answer === null || answer === '' || 
+              (Array.isArray(answer) && answer.length === 0)) {
+            missingRequiredFields.push({
+              question_id: question.question_id,
+              label: question.label
+            })
+          }
+        }
+      }
+    }
+
+    // Return validation error if required fields are missing
+    if (missingRequiredFields.length > 0) {
+      return NextResponse.json(
+        { 
+          error: 'Missing required fields', 
+          missing_fields: missingRequiredFields,
+          message: 'Please fill in all required fields before submitting'
+        },
         { status: 400 }
       )
     }
